@@ -1,0 +1,59 @@
+<!--pages/workRecord/addBatch.wxml-->
+
+<form bindsubmit='formSubmit'>
+  <view class='row-wrap'>
+    <view class='section'>
+      <lable class='lable2'>项目</lable>
+      <picker name='项目名称' bindchange="bindtaskPickerChange" value="{{taskIndex}}" range="{{taskArray}}" range-key='name'>
+    <text wx:if='{{taskIndex != -1}}'> {{taskArray[taskIndex].name}}</text>
+    <text wx:else class='placeholder'>点击选择项目名称</text>
+   </picker>
+    </view>
+
+    <view class='section' >
+      <lable class='lable2'>上班时间</lable>
+     <picker name='上班日期' value='{{startDate}}' mode='date' start='2018-01-01' end='2020-12-31' bindchange='bindStartDateChange'><text class='lable1'>{{startDate}}</text></picker>
+      <label> </label>
+      <picker name='上班时间' value='{{startTime}}' mode='time' start='00:00' end='23:59' bindchange='bindStartTimeChange'><text class='lable1'>{{startTime}}</text></picker>   
+      
+    </view>
+
+    
+    <view class='section' >
+      <lable class='lable2'>下班时间</lable>
+
+     <picker name='下班日期' value='{{endDate}}' mode='date' start='2018-01-01' end='2020-12-31' bindchange='bindEndDateChange'><text class='lable1'>{{endDate}}</text></picker>
+     <label> </label>
+      <picker name='下班时间' value='{{endTime}}' mode='time' start='00:00' end='23:59' bindchange='bindEndTimeChange'><text class='lable1'>{{endTime}}</text></picker>   
+
+    </view>
+
+
+    <view class='section' >
+      <lable class='lable2'>打卡人员</lable>
+      <input name='员工id' class='input' type='text' placeholder='多个工号间用,隔开' 
+      bindinput='userIdInput'  placeholder-class='placeholder'></input>
+    </view>
+
+    <view class='section' >
+    <lable class='lable2'>状态</lable>
+     <picker name='状态' bindchange="bindstatusPickerChange" value="{{statusIndex}}" range="{{statusArray}}" range-key='desc' >
+    <text wx:if='{{statusIndex != -1}}'> {{statusArray[statusIndex].desc}}</text>
+    <text wx:else class='placeholder'>点击选择状态</text>
+  </picker>
+    </view>
+
+  <view >
+  <label class='lable3'>备注</label>
+  <textarea name='备注' class='input2' type='text' placeholder='请说明原因'   bindinput='noteInput'           placeholder-class='placeholder'></textarea>
+  </view>
+
+  <view class='btn-area'>
+  <button bindtap='addBatch' class='btn'><text>提交</text></button>
+  </view>
+
+  </view>
+
+</form>
+
+

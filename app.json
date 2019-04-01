@@ -1,0 +1,49 @@
+{
+  "pages": [
+    
+    "pages/login/login",
+    "pages/onDuty/onDuty",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/offDuty/offDuty",
+    "pages/workRecord/workRecord",
+    "pages/workRecord/addBatch",
+    "pages/workRecord/updateBatch"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "white",
+    "navigationBarTitleText": "精诚特卫",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#b2b2b2",
+    "selectedColor": "#2fcc85",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/onDuty/onDuty",
+        "text": "上班打卡",
+        "iconPath": "image/check_unselected.png",
+        "selectedIconPath": "image/check_selected.png"
+      },
+      {
+        "pagePath": "pages/offDuty/offDuty",
+        "text": "下班打卡",
+        "iconPath": "image/check_unselected.png",
+        "selectedIconPath": "image/check_selected.png"
+      },
+      {
+        "pagePath": "pages/workRecord/workRecord",
+        "text": "考勤记录",
+        "iconPath": "image/check_unselected.png",
+        "selectedIconPath": "image/check_selected.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于打卡位置信息上传"
+    }
+  }
+}

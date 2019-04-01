@@ -1,0 +1,20 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+ 
+ <open-data type="userAvatarUrl" class='avatar'></open-data>
+ <!-- <image src='{{avatarUrl}}' class='avatar'></image>-->
+  <form bindsubmit="formSubmit" class='form'>
+    <view class="row">
+
+    <input type="text" name="userId" placeholder="请输入用户账号" placeholder-class='placeholder' value="{{userId}}" />
+   </view>
+   <view class="row">
+     <input type="password" name="userPassword" placeholder="请输入密码" placeholder-class='placeholder' value="{{userPassword}}" />
+   </view>
+    <view class="row">
+      <button class='btn'  form-type="submit"><text class='lable'>绑定账号</text></button>
+    </view>
+ 
+  </form>
+</view>
+

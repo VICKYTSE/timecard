@@ -1,0 +1,85 @@
+<!--pages/workRecord/workRecord.wxml-->
+<view class='page'>
+<view class='container_back'>
+  <view class='container'>
+    <view class='vertical left'>
+      <view class = 'logout'>
+      <text class='lable1'>  {{userName}} </text>
+      <image class=" logoutbtn image_logout" bindtap='logout'src="../../image/logout.png"></image>
+    </view >
+      <text class='lable1'>  {{userId}}</text>
+    </view><!--vertical left-->
+
+    <view class='vertical right container_small'>  
+      <picker value='{{currentDate}}' mode='date' start='2018-01-01' end='2020-12-31' disabled='false' bindchange='bindDateChange'><text class='lable1'>{{currentDate}}</text></picker>
+      <picker value='{{currentTime}}' mode='time' start='00:00' end='23:59' disabled='false'  bindchange='bindTimeChange'><text class='lable1'>{{currentTime}}</text></picker>
+    </view><!--vertical right container_small-->
+
+  </view><!--container-->
+</view><!--container_back-->
+
+
+<view class='row_back'>
+<view class='row'>
+   <picker class='picker' bindchange="bindtaskPickerChange" value="{{taskIndex}}" range="{{taskArray}}" range-key='name'>
+    <label class='lable1'>项目名称  </label>
+    <text wx:if='{{taskIndex != -1}}'> {{taskArray[taskIndex].name}}</text>
+    <text wx:else class='placeholder'>点击选择项目名称</text>
+   </picker>
+</view>
+<view class='row'>
+    <picker class='picker' bindchange="bindstatusPickerChange" value="{{statusIndex}}" range="{{statusArray}}" range-key='desc' >
+    <label class='lable1'>状态类型  </label>
+    <text wx:if='{{statusIndex != -1}}'> {{statusArray[statusIndex].desc}}</text>
+    <text wx:else class='placeholder'>点击选择状态</text>
+  </picker>
+</view>
+<view class='button_group_row'>
+  <button class='button_group circle skin_red' bindtap='addBatch'><text>新增</text></button>
+  <button class='button_group circle skin_blue' bindtap='refresh'><text>刷新</text></button>
+  <button class='button_group circle skin_green' bindtap='updateBatch'><text>编辑</text></button>
+  <button class='button_group circle skin_orange' bindtap='deleteByIdBatch'><text>删除</text></button>
+</view>
+</view>
+
+
+<view class="table_back">
+  <view class='title'> 考勤记录</view>
+<view class="table">
+  <view class="tr bg-w">
+  <view class="th"><view bindtap="bindSelectAll" class="my-sel" >
+<icon wx:if="{{selectedAll}}" type="success_circle" size="15" class="l-mycheck"/>
+<icon wx:else type="circle" size="15" class="l-mycheck"/>
+</view></view>
+    <view class="th"><text class='lable2'>姓名</text></view>
+    <view class="th widthadd1"><text class='lable2'>工号</text></view>
+    <view class="th widthadd2"><text class='lable2'>上班时间</text></view>
+    <view class="th widthadd2"><text class='lable2'>下班时间</text></view>
+    <view class="th "><text class='lable2'>状态</text></view>
+    <view class="th "><text class='lable2'>备注</text></view>
+    <view class="th "><text class='lable2'>编辑</text></view>
+    <view class="th "><text class='lable2'>删除</text></view>
+  </view>
+  <checkbox-group>
+  <block wx:for="{{listData}}" wx:key="{{id}}">
+    <view class="tr color_diff_row" >
+     <view class="td">
+     <icon wx:if="{{item.selected}}" type="success_circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" class="my-check"/>
+      <icon wx:else type="circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" class="my-check"/>
+      </view>
+      <view class="td"><text class='lable3'>{{item.userName}}</text></view>
+      <view class="td"><text class='lable3'>{{item.userId}}</text></view>
+      <view class="td"><text class='lable3'>{{item.startTime}}</text></view>
+      <view class="td"><text class='lable3'>{{item.endTime}}</text></view>
+      <view class="td"><text class='lable3'>{{item.status}}</text></view>
+      <view class="td"><text class='lable3'>{{item.note}}</text></view>
+      <view class="td"><text class='edit' bindtap='update' data-userId='{{item.userId}}' data-id='{{item.workRecordId}}' data-name = '{{item.userName}}' >编辑</text></view>
+      <view class="td"><text class='delete' bindtap='deleteById' data-id='{{item.workRecordId}}'>删除</text></view>
+    </view>
+  </block>
+  </checkbox-group>
+</view>
+</view>
+
+</view>
+

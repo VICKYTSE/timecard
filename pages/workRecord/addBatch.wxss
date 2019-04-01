@@ -1,0 +1,81 @@
+/* pages/workRecord/addBatch.wxss */
+.btn-area{
+  padding: 0 20px;
+}
+
+.btn{
+  background-color: #4E89D7
+}
+.button{
+  background-color: #4E89D7;
+  width: 200 px;
+  height: 60 px;
+  margin-right: 0px;
+
+}
+.button text{
+  font-size: 30rpx;
+  color: white
+}
+.btn text{
+  font-size: 30rpx;
+  color: white
+}
+
+.row-wrap{
+  }
+
+.lable{
+  font-size: 30rpx;
+  padding-right: 5px;
+  color: 	#666;
+}
+
+.lable2{
+  font-size: 30rpx;
+  padding-right: 5px;
+  color: 	#666;
+  width: 150rpx;
+}
+
+.lable3{
+  font-size: 30rpx;
+  padding-right: 5px;
+  color: 	#666;
+  width: 150rpx;
+  padding: 5px;
+}
+
+.section{
+  line-height: 80rpx;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  display: flex;
+  border-bottom: 1rpx dotted #ccc;
+  color: #666;
+  padding: 5px;
+}
+.placeholder{
+  padding-left: 5rpx;
+  font-size: 30rpx;
+  padding-right: 5px;
+  color: 	#CCCCCC;
+
+}
+.input{
+  display: flex;
+  padding-top: 18rpx;
+  height: 44rpx;
+}
+
+.input2{
+  background-color: #F5F5FD;
+  height: 200rpx;
+  width: 730rpx;
+  display: flex;
+  margin: 5px;
+  margin-bottom: 10px;
+}
+.lable1{
+  padding: 5px
+}

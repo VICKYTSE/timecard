@@ -1,0 +1,257 @@
+/* pages/workRecord/workRecord.wxss */
+.page{
+  background-color: #DDDDDD;
+  height: 100%;
+}
+.input{
+  height: 80rpx;
+}
+.inputView{
+    border:  1px solid gray;
+    height: 80rpx;
+}
+.placeholder{
+  padding-left: 5rpx;
+  padding-right: 5px;
+  color: 	#CCCCCC;
+}
+.picker{
+  padding: 5px
+}
+
+.logout{
+  flex-direction: row;
+  display: flex;
+}
+.logoutbtn{
+  height: 45rpx;
+  width:56rpx;
+}
+.image_logout{
+  width: 29 rpx;
+  height: 29 rpx;
+}
+
+
+/*table*/
+.table_back{
+  background-color:white;
+}
+
+.table {
+margin-left: 36rpx;
+border-right: 0;
+border-bottom: 0;
+width: 90%;
+padding: 5rpx;
+}
+.tr {
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
+.th, .td {
+padding: 5px;
+border-bottom: 1px solid #4e89D7;
+/*border-right: 1px solid #dadada;*/
+text-align: center;
+font-size: medium;
+display: flex;
+justify-content: center;
+}
+.th {
+width: 100%;
+font-weight: 480;
+border-top: 1px solid #4e89D7;
+}
+.td{
+font-weight:initial;
+width: 100%;
+align-items: center; 
+}
+.color_diff_row:nth-of-type(odd){
+   background:#ddebf7;
+}
+.color_diff_row:nth-of-type(even){
+   background:white;
+}
+.widthadd1{
+  padding-left: 27rpx;
+  padding-right: 27rpx;
+}
+.widthadd2{
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+}
+.my-sel{
+  display: flex;
+  justify-content: center
+}
+
+
+/*container*/
+.container_back{
+  padding:50rpx 50rpx 50rpx 50rpx;
+  background-color: #4e89D7;
+  margin-bottom: 10rpx;
+  height: auto;
+}
+.container {
+  height: 20px;
+  width: 100%;
+  flex-direction: row;
+  padding: 5rpx;
+}
+.container text{
+  color: white;
+  font-size: 32rpx;
+}
+.vertical{
+  display:flex;
+  flex-direction: column;
+}
+.left{
+  align-items:flex-start;
+}
+.right{
+  align-items:flex-end;
+}
+
+
+/*row*/
+.row_back{
+  padding:50rpx 0rpx 20rpx 0rpx;
+  background-color:  white;
+  margin-top: 10rpx;
+  margin-bottom: 20rpx;
+  height: auto;
+
+}
+.row{
+  margin:0 auto;                /*新增*/
+  width: 80%;                   /*新增*/
+  justify-content: flex-start;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+    border-bottom: 1rpx dotted #ccc;
+}
+.row text{
+  flex-grow: 1;
+  text-align: center;
+}
+.row input{
+  color:#aaa;
+  flex-grow: 0;
+  border: 1px solid ;
+  display: inline-block;
+  box-shadow: 0 0 0.15rem #aaa;
+  padding: 0.3rem;
+  padding-top: 18rpx;
+  height: 48rpx;
+  width: 360rpx;
+  border-radius: 0.2rem;
+}
+.row button{
+  padding: 0 2rem;
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.row label{
+  margin-right: 1.5rem;     
+}
+
+/*wenben*/
+.label{
+  font-size: 36rpx;
+  color: 	#666;
+}
+.lable2{
+  font-size: 24rpx;
+  color:#4e89D7;
+  font-weight: 800;
+}
+.lable3{
+  font-size: 24rpx;
+  color:#4e89D7;
+}
+.title{     /*这是一个view*/
+  font-size: 36rpx;
+  padding: 20rpx 0rpx 20rpx 36rpx; 
+}
+.delete{
+   font-size: 24rpx;
+  color: red;
+  text-decoration-line: underline
+}
+.edit{
+   font-size: 24rpx;
+  color: blue;
+  text-decoration: underline
+}
+
+
+/*class='button_group'*/
+.button_group_row{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40rpx;
+  margin-left: 70rpx;
+  margin-right: 70rpx;
+  margin-bottom: 20rpx;
+}
+.button_group_row text{
+  font-size: 32rpx;
+}
+.button_group{
+  border-radius:0rem;
+  color: white;
+  padding: 0rpx;
+  text-align: center;
+  margin: 3rpx;
+}
+.circle{
+    width: 120rpx;
+    height: 120rpx;
+    border: 0 solid #ffffff;
+    border-radius: 500px;
+    box-shadow: 4px 1px 1px #cccccc;
+}
+.skin_blue{
+  background-color: #336699;
+}
+.skin_red{
+  background-color: #6699cc;
+}
+.skin_green{
+  background-color: #669999;
+}
+.skin_orange{
+  background-color:#9999CC;
+}
+
+
+/*
+.section{
+  line-height: 80rpx;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  display: flex;
+  padding: 5px;
+  justify-content: flex-start
+}
+
+.section1{
+  line-height: 60rpx;
+  margin-top: 50rpx;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  display:flex;
+  padding: 1px;
+  justify-content: flex-end
+}
+*/
