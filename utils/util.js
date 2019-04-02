@@ -19,8 +19,6 @@ function formatTime1(date) {
   var hour = date.getHours()
   var minute = date.getMinutes()
   var second = date.getSeconds()
-
-
   return [year, month, day].map(formatNumber).join('-')
 }
 

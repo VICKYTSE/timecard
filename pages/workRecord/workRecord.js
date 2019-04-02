@@ -9,6 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    selected: 0,
+    list: ['今日记录', '往日记录', '待处理'],
     userName: '',
     userId: '',
     userInfo:[],
@@ -25,8 +27,29 @@ Page({
     selectedUserId:[],
     selectedName:[],
     selectedAll:false,
+    pastListData:[],
+    errorListData:[],
   },
 
+  selected: function (e) {
+    let that = this
+    console.log(e)
+    let index = e.currentTarget.dataset.index
+    console.log("index", index)
+    if (index == 0) {
+      that.setData({
+        selected: 0
+      })
+    } else if (index == 1) {
+      that.setData({
+        selected: 1
+      })
+    } else {
+      that.setData({
+        selected: 2
+      })
+    }
+  },
 
   /**
    *  默认当前时间日期
@@ -81,6 +104,8 @@ Page({
 
     //获取打卡记录
     that.getRecord();
+    that.getPastRecord();
+    that.getErrorRecord();
   },
 
   /**
@@ -100,6 +125,8 @@ Page({
 
     //刷新打卡记录
     that.getRecord();
+    that.getPastRecord();
+    that.getErrorRecord();
   },
 
 
@@ -125,7 +152,6 @@ Page({
       selectedName:emptyArray,
       selectedId:emptyArray,
       selectedUserId:emptyArray
-      
     })
 
     let cookie = wx.getStorageSync('cookieKey');
@@ -156,6 +182,8 @@ Page({
         }   //注销
         if (res.data.code == 0) {
           console.log(res)
+          console.log(that.data.userId + "  " + that.data.taskArray[that.data.taskIndex].id
+            + "  " + that.data.status + "  " + that.data.currentDate)
         }
         else {
           console.log(res)
@@ -167,6 +195,39 @@ Page({
       }
 
     })
+  },
+
+  /**
+  * 获取三日(包括今日)内异常打卡记录
+  */
+  getErrorRecord: function (e) {
+    //获取打卡记录  
+    var that = this;
+    that.setData({
+      errorListData: []
+    })
+    that.onGetErrorRecord(0)
+    that.onGetErrorRecord(1)
+    that.onGetErrorRecord(2)
+
+    console.log(that.data.errorListData)
+    
+  },
+
+  /**
+  * 获取前三日打卡记录
+  */
+  getPastRecord: function (e) {
+    //获取打卡记录  
+    var that = this;
+    that.setData({
+      pastListData:[]
+    })
+    that.onGetPastRecord(1)
+    that.onGetPastRecord(2)
+    that.onGetPastRecord(3)
+
+    console.log(that.data.pastListData)
   },
 
   /**
@@ -275,9 +336,21 @@ Page({
   /**
    * 全选
    */
-  bindSelectAll:function(){
+  bindSelectAll:function(e){
     var that = this;
-    var list = that.data.listData
+   // var list = that.data.listData
+    var type = e.currentTarget.dataset.type
+    console.log(type)
+    if (type == 0) {
+      var list = that.data.listData
+    }
+    else if (type == 1) {
+      var list = that.data.pastListData
+    }
+    else if (type == 2) {
+      var list = that.data.errorListData
+    }
+
     if(list.length!=0){
 
     var selectedAll = that.data.selectedAll
@@ -288,11 +361,27 @@ Page({
         {list[i].selected =false;}
       list[i].selected = !list[i].selected;
     }
-    that.setData({
-      listData:list,
-      selectedAll:selectedAll
 
-    })
+      if (type == 0) {
+        that.setData({
+          listData: list,
+          selectedAll: selectedAll
+          
+        })
+      }
+      else if (type == 1) {
+        that.setData({
+          pastListData: list,
+          selectedAll: selectedAll
+        })
+      }
+      else if (type == 2) {
+        that.setData({
+          errorListData: list,
+          selectedAll: selectedAll
+        })
+      }
+
     var listId = []
     var listUserId = []
     var listName = []
@@ -316,16 +405,44 @@ Page({
    * bindCheckbox
    */
   bindCheckbox:function(e){
-    var index = e.currentTarget.dataset.index
     var that = this
-    var list = that.data.listData
+    var index = e.currentTarget.dataset.index
+    var type = e.currentTarget.dataset.type
+    if(type == 0){
+      var list = that.data.listData
+    }
+    else if(type == 1)
+    {
+      var list = that.data.pastListData
+    }
+    else if(type == 2){
+      var list = that.data.errorListData
+    }
+    
+    //var list = that.data.listData
     if(list[index].selected==''){
       list[index].selected=false
     }
     list[index].selected = !list[index].selected
-    that.setData({
-      listData: list
-    })
+
+    if (type == 0) {
+      that.setData({
+        listData: list
+      })    
+    } 
+    else if (type == 1) 
+    {
+      that.setData({
+        pastListData: list
+      })  
+    } 
+    else if (type == 2) 
+    {
+      that.setData({
+        errorListData: list
+      })  
+    }
+
     var listId = []
     var listUserId = []
     var listName = []
@@ -341,7 +458,6 @@ Page({
       selectedUserId: listUserId,
       selectedName:listName
     })  
-
   },
 
   /**
@@ -420,6 +536,8 @@ Page({
       status:-1
     })
     that.getRecord();   //刷新打卡记录
+    that.getPastRecord();
+    that.getErrorRecord();
   },
 
   /**
@@ -529,7 +647,7 @@ Page({
       var status = wx.getStorageSync('status');
       if (status) {
         that.setData({
-          statuse: status
+          status: status
         })
       }
     } catch (e) {
@@ -553,6 +671,7 @@ Page({
     })
     that.getPlaceInfo()
     that.getTaskArray()
+    that.getPastRecord()
     
   },
 
@@ -625,6 +744,8 @@ Page({
     that.changeTime();
     if (that.data.taskIndex != -1) {
       that.getRecord();
+      that.getPastRecord();
+      that.getErrorRecord();
     }
     that.loadStorage();          //获取本地缓存 新增8.20
   },
@@ -662,5 +783,123 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+
+  onGetPastRecord: function (i) {
+    //获取打卡记录  
+    var that = this;
+    var emptyArray = new Array
+    that.setData({
+      selectedAll: false,
+      selectedName: emptyArray,
+      selectedId: emptyArray,
+      selectedUserId: emptyArray
+
+    })
+
+    let cookie = wx.getStorageSync('cookieKey');
+    let header = { 'Content-Type': 'application/x-www-form-urlencoded' };
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    var date = new Date();
+    var date_s = date.getTime();
+    date.setTime(date_s - i*60 * 60 * 24 * 1000)
+    var dateTime = util.formatTime1(date);
+    wx.request({
+      url: app.globalData.url + '/workRecord/getByLeaderAndProjectAndStatusAndDate',
+      data: {
+        leaderId: that.data.userId,
+        projectId: that.data.taskArray[that.data.taskIndex].id,
+        status: that.data.status,
+        date: dateTime
+      },
+      header: header,
+      //header: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      method: 'POST',
+      success: function (res) {
+      },
+      fail: function (res) {
+        console.log(res)
+      },
+      complete: function (res) {
+        if (res && res.header && res.header['Content-Type'] == "text/html") {   //开启了新的会话
+          that.logout()
+        }   //注销
+        if (res.data.code == 0) {
+          console.log(res)
+          console.log(dateTime)
+        }
+        else {
+          console.log(res)
+        }
+        var list = that.data.pastListData
+        for (var j in res.data.data){
+          list.push(res.data.data[j])
+        }
+        that.setData({
+          pastListData:list 
+        })
+      }
+    })
+  },
+
+  onGetErrorRecord: function (i) {
+    //获取打卡记录  
+    var that = this;
+    var emptyArray = new Array
+    that.setData({
+      selectedAll: false,
+      selectedName: emptyArray,
+      selectedId: emptyArray,
+      selectedUserId: emptyArray
+
+    })
+
+    let cookie = wx.getStorageSync('cookieKey');
+    let header = { 'Content-Type': 'application/x-www-form-urlencoded' };
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    var date = new Date();
+    var date_s = date.getTime();
+    date.setTime(date_s - i * 60 * 60 * 24 * 1000)
+    var dateTime = util.formatTime1(date);
+    wx.request({
+      url: app.globalData.url + '/workRecord/getByLeaderAndProjectAndStatusAndDate',
+      data: {
+        leaderId: that.data.userId,
+        projectId: that.data.taskArray[that.data.taskIndex].id,
+        status: 3,
+        date: dateTime
+      },
+      header: header,
+      //header: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      method: 'POST',
+      success: function (res) {
+      },
+      fail: function (res) {
+        console.log(res)
+      },
+      complete: function (res) {
+        if (res && res.header && res.header['Content-Type'] == "text/html") {   //开启了新的会话
+          that.logout()
+        }   //注销
+        if (res.data.code == 0) {
+          console.log(res)
+          console.log(dateTime)
+        }
+        else {
+          console.log(res)
+        }
+        var list = that.data.errorListData
+        for (var j in res.data.data) {
+          list.push(res.data.data[j])
+        }
+        that.setData({
+          errorListData: list
+        })
+      }
+    })
   }
 })

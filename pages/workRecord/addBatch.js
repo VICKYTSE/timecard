@@ -24,8 +24,8 @@ Page({
     startLatitude: '',
     endlatitude:'',
     endLongitude:'',
-    leaderId:'zy00001',
-    statusArray: [ { "value": 0, "desc": '上班' }, { "value": 1, "desc": '下班' }, { "value": 2, "desc": '缺卡' }],
+    leaderId:'',
+    statusArray: [{ "value": 0, "desc": '上班' }, { "value": 1, "desc": '下班' }, { "value": 2, "desc": '缺卡' }, { "value": 3, "desc": '异常' }],
     statusIndex: -1,
     note:' ',
   },
@@ -100,7 +100,7 @@ Page({
    */
   bindStartDateChange: function (e) {
     this.setData({
-      StartDate: e.detail.value
+      startDate: e.detail.value
     })
   },
   /**
@@ -222,7 +222,9 @@ Page({
       },
       complete: function (res) {
         if (res && res.header && res.header['Content-Type'] == "text/html") {   //开启了新的会话
-          that.logout()}   //注销
+          that.logout()
+          }   //注销
+
         console.log(record)
 
         if (res.data.code == 0) {
@@ -284,6 +286,7 @@ Page({
     })
     that.changeTime()
     that.getPlaceInfo()
+    that.loadStorage();
   },
 
   loadStorage: function (e) {

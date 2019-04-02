@@ -26,7 +26,7 @@ Page({
     endlatitude: '',
     endLongitude: '',
     userId:'',
-    statusArray: [{ "value": 0, "desc": '上班' }, { "value": 1, "desc": '下班' }, { "value": 2, "desc": '缺卡' }],
+    statusArray: [{ "value": 0, "desc": '上班' }, { "value": 1, "desc": '下班' }, { "value": 2, "desc": '缺卡' }, { "value": 3, "desc": '异常' }],
     statusIndex: -1,
     note: '',
   },
@@ -101,7 +101,7 @@ Page({
    */
   bindStartDateChange: function (e) {
     this.setData({
-      StartDate: e.detail.value
+      startDate: e.detail.value
     })
   },
   /**

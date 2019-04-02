@@ -10,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+  selected: 0,
+  list: ['今日记录'],
   userName:'',
   userInfo:[],
   userId:'',
@@ -33,6 +35,25 @@ Page({
   focusFlag: true
   },
 
+  selected: function (e) {
+    let that = this
+    console.log(e)
+    let index = e.currentTarget.dataset.index
+    console.log("index", index)
+    if (index == 0) {
+      that.setData({
+        selected: 0
+      })
+    } else if (index == 1) {
+      that.setData({
+        selected: 1
+      })
+    } else {
+      that.setData({
+        selected: 2
+      })
+    }
+  },
 
   /**
    *  默认当前时间日期

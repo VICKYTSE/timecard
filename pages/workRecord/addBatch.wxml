@@ -12,7 +12,7 @@
 
     <view class='section' >
       <lable class='lable2'>上班时间</lable>
-     <picker name='上班日期' value='{{startDate}}' mode='date' start='2018-01-01' end='2020-12-31' bindchange='bindStartDateChange'><text class='lable1'>{{startDate}}</text></picker>
+     <picker name='上班日期' value='{{startDate}}' mode='date' start='2019-01-01' end='2020-12-31' bindchange='bindStartDateChange'><text class='lable1'>{{startDate}}</text></picker>
       <label> </label>
       <picker name='上班时间' value='{{startTime}}' mode='time' start='00:00' end='23:59' bindchange='bindStartTimeChange'><text class='lable1'>{{startTime}}</text></picker>   
       

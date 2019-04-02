@@ -23,14 +23,14 @@
 <view class='row'>
    <picker class='picker' bindchange="bindtaskPickerChange" value="{{taskIndex}}" range="{{taskArray}}" range-key='name'>
     <label class='lable1'>项目名称  </label>
-    <text wx:if='{{taskIndex != -1}}'> {{taskArray[taskIndex].name}}</text>
+    <text wx:if='{{taskIndex != -1}}' class='lable1'> {{taskArray[taskIndex].name}}</text>
     <text wx:else class='placeholder'>点击选择项目名称</text>
    </picker>
 </view>
 <view class='row'>
     <picker class='picker' bindchange="bindstatusPickerChange" value="{{statusIndex}}" range="{{statusArray}}" range-key='desc' >
     <label class='lable1'>状态类型  </label>
-    <text wx:if='{{statusIndex != -1}}'> {{statusArray[statusIndex].desc}}</text>
+    <text  class='lable1' wx:if='{{statusIndex != -1}}'> {{statusArray[statusIndex].desc}}</text>
     <text wx:else class='placeholder'>点击选择状态</text>
   </picker>
 </view>
@@ -44,13 +44,26 @@
 
 
 <view class="table_back">
-  <view class='title'> 考勤记录</view>
-<view class="table">
+ <!--> <view class='title'> 考勤记录</view>
+  <!-- tab框  -->
+<view class="nav_title">
+  <view class="nav_tab">
+  <!-- 如果选中的下表等于当前的索引，就使用active class名，否则class名为common -->
+    <view wx:for="{{list}}" wx:key="list" class="{{selected==index?'active':'common'}}" data-index='{{index}}' bindtap="selected">{{item}}
+  <!-- 如果选中的下表等于当前的索引，就添加下划线 -->   
+      <view class="{{selected==index?'nav_underline':''}}"></view>
+    </view>
+  </view>
+  <!-- tab框显示内容 -->
+  <view wx:if="{{selected == 0}}">
+    <view class="table">
   <view class="tr bg-w">
-  <view class="th"><view bindtap="bindSelectAll" class="my-sel" >
-<icon wx:if="{{selectedAll}}" type="success_circle" size="15" class="l-mycheck"/>
+  <view class="th">
+  <view bindtap="bindSelectAll" data-type= "0" class="my-sel" >
+<icon wx:if="{{selectedAll}}" type="success_circle"  size="15" class="l-mycheck"/>
 <icon wx:else type="circle" size="15" class="l-mycheck"/>
-</view></view>
+</view>
+</view>
     <view class="th"><text class='lable2'>姓名</text></view>
     <view class="th widthadd1"><text class='lable2'>工号</text></view>
     <view class="th widthadd2"><text class='lable2'>上班时间</text></view>
@@ -64,8 +77,8 @@
   <block wx:for="{{listData}}" wx:key="{{id}}">
     <view class="tr color_diff_row" >
      <view class="td">
-     <icon wx:if="{{item.selected}}" type="success_circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" class="my-check"/>
-      <icon wx:else type="circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" class="my-check"/>
+     <icon wx:if="{{item.selected}}" type="success_circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" data-type= "0" class="my-check"/>
+      <icon wx:else type="circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" data-type= "0" class="my-check"/>
       </view>
       <view class="td"><text class='lable3'>{{item.userName}}</text></view>
       <view class="td"><text class='lable3'>{{item.userId}}</text></view>
@@ -78,7 +91,93 @@
     </view>
   </block>
   </checkbox-group>
+  </view>
+  </view>
+
+  <!-- 往日记录 -->
+  <view wx:if="{{selected == 1}}">
+  
+  <view class="table">
+  <view class="tr bg-w">
+  <view class="th">
+  <view bindtap="bindSelectAll" data-type= "1" class="my-sel" >
+<icon wx:if="{{selectedAll}}"  type="success_circle" size="15" class="l-mycheck"/>
+<icon wx:else type="circle" size="15" class="l-mycheck"/>
 </view>
+</view>
+    <view class="th"><text class='lable2'>姓名</text></view>
+    <view class="th widthadd1"><text class='lable2'>工号</text></view>
+    <view class="th widthadd2"><text class='lable2'>上班时间</text></view>
+    <view class="th widthadd2"><text class='lable2'>下班时间</text></view>
+    <view class="th "><text class='lable2'>状态</text></view>
+    <view class="th "><text class='lable2'>备注</text></view>
+    <view class="th "><text class='lable2'>编辑</text></view>
+    <view class="th "><text class='lable2'>删除</text></view>
+  </view>
+  <checkbox-group>
+  <block wx:for="{{pastListData}}" wx:key="{{id}}">
+    <view class="tr color_diff_row" >
+     <view class="td">
+     <icon wx:if="{{item.selected}}" type="success_circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" data-type= "1" class="my-check"/>
+      <icon wx:else type="circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" data-type= "1" class="my-check"/>
+      </view>
+      <view class="td"><text class='lable3'>{{item.userName}}</text></view>
+      <view class="td"><text class='lable3'>{{item.userId}}</text></view>
+      <view class="td"><text class='lable3'>{{item.startTime}}</text></view>
+      <view class="td"><text class='lable3'>{{item.endTime}}</text></view>
+      <view class="td"><text class='lable3'>{{item.status}}</text></view>
+      <view class="td"><text class='lable3'>{{item.note}}</text></view>
+      <view class="td"><text class='edit' bindtap='update' data-userId='{{item.userId}}' data-id='{{item.workRecordId}}' data-name = '{{item.userName}}' >编辑</text></view>
+      <view class="td"><text class='delete' bindtap='deleteById' data-id='{{item.workRecordId}}'>删除</text></view>
+    </view>
+  </block>
+  </checkbox-group>
+  </view>
+  
+  </view>
+  <!-- 待处理 -->
+  <view wx:if="{{selected == 2}}">
+  
+  <view class="table">
+  <view class="tr bg-w">
+  <view class="th">
+  <view bindtap="bindSelectAll"  data-type= "2" class="my-sel" >
+<icon wx:if="{{selectedAll}}" type="success_circle" size="15" class="l-mycheck"/>
+<icon wx:else type="circle" size="15" class="l-mycheck"/>
+</view>
+</view>
+    <view class="th"><text class='lable2'>姓名</text></view>
+    <view class="th widthadd1"><text class='lable2'>工号</text></view>
+    <view class="th widthadd2"><text class='lable2'>上班时间</text></view>
+    <view class="th widthadd2"><text class='lable2'>下班时间</text></view>
+    <view class="th "><text class='lable2'>状态</text></view>
+    <view class="th "><text class='lable2'>备注</text></view>
+    <view class="th "><text class='lable2'>编辑</text></view>
+    <view class="th "><text class='lable2'>删除</text></view>
+  </view>
+  <checkbox-group>
+  <block wx:for="{{errorListData}}" wx:key="{{id}}">
+    <view class="tr color_diff_row" >
+     <view class="td">
+     <icon wx:if="{{item.selected}}" type="success_circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" data-type= "2" class="my-check"/>
+      <icon wx:else type="circle" size="15" bindtap="bindCheckbox" data-id="{{item.id}}"  data-id="{{item.userId}}" data-index="{{index}}" data-type= "2" class="my-check"/>
+      </view>
+      <view class="td"><text class='lable3'>{{item.userName}}</text></view>
+      <view class="td"><text class='lable3'>{{item.userId}}</text></view>
+      <view class="td"><text class='lable3'>{{item.startTime}}</text></view>
+      <view class="td"><text class='lable3'>{{item.endTime}}</text></view>
+      <view class="td"><text class='lable3'>{{item.status}}</text></view>
+      <view class="td"><text class='lable3'>{{item.note}}</text></view>
+      <view class="td"><text class='edit' bindtap='update' data-userId='{{item.userId}}' data-id='{{item.workRecordId}}' data-name = '{{item.userName}}' >编辑</text></view>
+      <view class="td"><text class='delete' bindtap='deleteById' data-id='{{item.workRecordId}}'>删除</text></view>
+    </view>
+  </block>
+  </checkbox-group>
+  </view>
+  
+  </view>
+</view>
+
 </view>
 
 </view>
